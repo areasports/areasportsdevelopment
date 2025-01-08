@@ -1,0 +1,338 @@
+body{
+  background-color: #eee;
+}
+input:read-only {
+  background-color: #d9d9d9 !important;
+}
+.logoForm {
+    width: 20%;
+    display: block;
+    margin: 0px auto;
+    margin-bottom: 20px;
+}
+@media (min-width: 576px)
+{
+    .bgSquare {
+        max-width: 540px;
+    }
+}
+
+@media (min-width: 768px)
+{
+    .bgSquare {
+        max-width: 920px;
+    }
+}
+@media (min-width: 992px)
+{
+    .bgSquare {
+        max-width: 1200px;
+    }
+}
+@media (min-width: 1200px){
+    .bgSquare {
+        max-width: 1340px;
+    }
+}
+.site-info a img{
+      width: 250px;
+      margin: 0 auto;
+      display: block;
+    }
+    .entry-form-sec{
+      background-color: #eee;
+      padding: 50px 0;
+    position: relative;
+    z-index: 1;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+    .entry-form h2{
+      color: #000;
+      padding-bottom: 30px;
+    }
+    .entry-form{
+      position: relative;
+      z-index: 1;
+      border-radius: 4px;
+      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+      background-color: #fff;
+      padding: 30px;
+      width: 70%;
+      margin: 0 auto;
+      min-height: 30rem;
+    }
+    .bg-image{
+      background: url(../images/owner.jpg);
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+    }
+    .bgSquare{
+      background: #ee5023;
+      height: 770px;
+      width: 70%;
+      /* display: flex; */
+      position: absolute;
+      z-index: -1;
+      top: 185px;
+      left: 0;
+      transform: skewY(-11deg);
+      margin: 0 auto;
+      right: 0;
+    }
+    .entry-form .form-control:focus,.entry-form .form-select:focus{
+      box-shadow: none;
+       border-color: #8fd6b0;
+      background-color: #fff;
+    }
+    .entry-form .form-control,.entry-form select{
+      background-color: #fff;
+      font-size: 16px;
+      color: #000;
+      font-weight: 400;
+      border: 1px solid #8fd6b0;
+      height: 40px;
+    }
+    .entry-form label{
+      color: #000;
+      font-size: 16px;
+      font-weight: 500;
+      padding-bottom: 6px;
+    }
+    .entry-form button, .btn:focus{
+      background-color: #ee5023;
+      font-weight: 500;
+      font-size: 16px;
+      height: 40px;
+    line-height: 20px;
+      border: 0;
+      width: 100%;
+      outline: 0 !important;
+      box-shadow: none !important;
+    }
+    .btn:active:focus{
+      box-shadow: none;
+    }
+    .btn:active,.btn:hover{
+      background-color: #d56647;
+    }
+    .customer-panel,.job-select-panel,.select-order-panel,.other-job-select-panel{
+      display: none;
+    }
+    #date-picker{
+      left: 0;
+      right: 0;
+      width: 300px;
+      margin: 0 auto;
+      max-width: unset;
+    }
+    .select2-hidden-accessible{
+      display: none;
+    }
+    .select2-container--default .select2-selection--single,
+    .select2-container .select2-selection--single{
+        border: 1px solid #8fd6b0;
+    }
+    .select2-container,
+    .select2-container--default .select2-selection--single,
+    .select2-container .select2-selection--single,
+    .select2-container--default .select2-selection--single .select2-selection__arrow{
+        background-color: #fff;
+      font-size: 16px;
+      color: #000;
+      font-weight: 400;
+      height: 100%;
+      border-radius: 0.375rem;
+      margin: -1px 0px;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__rendered{
+        line-height: calc(2.4375rem + 1px) !important;
+        font-size:  16px;
+        color: black;
+        border-color: black;
+    }
+    .bb-1{
+        border-bottom: 2px solid #8fd6b0;
+    }
+    .bt-1{
+        border-top: 2px solid #8fd6b0;
+    }
+    .add-more{
+        width: auto !important;
+        float: right;
+        background: #8fd6b0 !important;
+        color: #454444ed !important;
+    }
+    .remove-item{
+      background: red;
+      padding: 0px 6px;
+      font-size: 1.3rem;
+      color: #fff;
+      border-radius: 6px;
+      cursor: context-menu;
+    }
+    .item{
+      position: relative;
+    }
+    h3{
+        color:black;
+        font-weight: bold;
+    }
+    .alert-danger{
+        color:red !important;
+    }
+    .danger{
+        border:1px solid red !important;
+    }
+    .table-checkbox input {
+      padding: 0;
+      height: initial;
+      width: initial;
+      margin-bottom: 0;
+      display: none;
+      cursor: pointer;
+    }
+
+    .table-checkbox label {
+      position: relative;
+      cursor: pointer;
+    }
+
+    .table-checkbox label:before {
+      content:'';
+      -webkit-appearance: none;
+      background-color: transparent;
+      border: 2px solid #8fd6b0;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+      padding: 8px;
+      display: inline-block;
+      position: relative;
+      vertical-align: middle;
+      cursor: pointer;
+      margin-right: 5px;
+    }
+
+    .table-checkbox input:checked + label:after {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 7px;
+      left: 7px;
+      width: 6px;
+      height: 12px;
+      border: solid #000;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+    .entry-form table{
+        width: 100%;
+    }
+    .form-tabel{
+        border:1px solid black;
+    }
+    .form-tabel thead tr:nth-child(even){
+      background-color: #00a3eb;
+    }
+    .entry-form td,.entry-form table th{
+        text-align: center;
+        padding: 10px;
+        font-size: 18px;
+    }
+    .form-tabel td:last-child input{
+        text-align: center;
+        /*margin-bottom: 20px;*/
+    }
+    .form-tabel td label{
+        /*margin-bottom: 20px;*/
+        padding: 0;
+        width: 34%;
+        margin-top: 1%;
+    }
+    .form-tabel th{
+      position: sticky;
+      top: -1px;
+      color:#fff;
+      z-index: 9;
+    }
+    .form-tabel tr{
+      border-color: black;
+      border-style: solid;
+      border-width: 1px;
+    }
+    .entry-form button.bootstrap-touchspin-down,.entry-form button.bootstrap-touchspin-up{
+      border-radius: 0;
+    }
+    footer{
+      background-color: #eee;
+    }
+    footer img{
+        width: 200px;
+        margin-bottom: 20px;
+    }
+    .site-info{
+      text-align: center;
+      padding: 20px;
+    }
+    .site-info p{
+      font-size: 14px;
+    color: #000;
+      margin: 0;
+    }
+    .site-info p a{
+      text-decoration: none;
+      color: #000;
+      font-weight: 500;
+    }
+    @media only screen and (max-width: 776px){
+        .logoForm{
+            width: 40%;
+        }
+      .entry-form{
+        width: 100%;
+        padding: 10px;
+      }
+      .bgSquare{
+        display: none;
+      }
+      .entry-form table td:last-child{
+        width: 30%;
+      }
+    }
+    @media only screen and (max-width: 576px){
+        
+      .entry-form-sec{
+        padding: 10px 0;
+      }
+      .entry-form button.bootstrap-touchspin-down, .entry-form button.bootstrap-touchspin-up{
+        display: none;
+      }
+      .responsive-tbl{
+        overflow-x: scroll;
+      }
+    }
+    .logo-div{
+      background-color: #000;
+    }
+
+    .btn-success{
+      background-color: rgb(9, 138, 9) !important;
+    }
+
+    .fa-trash-can{
+      color: #ff0000;
+      text-align: right;
+    }
+    .fa-trash-can:hover{
+      cursor: pointer;
+    }
+
+    .active{
+      color: green;
+      font-size: 18px !important;
+    }
+
+    .formValues{
+      margin-top: 14rem;
+    }

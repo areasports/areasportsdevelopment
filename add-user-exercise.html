@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Area Sports || Add Routine</title>
+  <meta charset="utf-8">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/company-logo.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/company-logo.jpg">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/images/company-logo.jpg">
+  <link rel="manifest" href="assets/site.webmanifest">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="assets/css/customStyle.css?v=1.0">
+  <style>
+    h1 {
+      color: #285475;
+      font-size: 5rem;
+      text-align: center;
+    }
+
+    .bgSquare {
+      height: 215px;
+    }
+
+    .bg-theme {
+      background-color: #ee5023;
+    }
+
+    .fw-b {
+      font-weight: bold;
+    }
+
+    .fa:hover {
+      cursor: pointer;
+    }
+
+    .no-of-set,
+    .no-of-reps,
+    .no-of-exercise {
+      min-width: 4rem;
+    }
+
+    .thead-basic {
+      background-color: #566696
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <section class="entry-form-sec">
+    <div class="container">
+      <div class="bgSquare"></div>
+      <div class="entry-form bg-image" id="entry-form">
+        <div class="col-md-12 img-div d-none">
+          <img class="logoForm" src="" alt="company logo">
+        </div>
+        <form action="https://script.google.com/macros/s/AKfycbwsG_udq5z9GwE1EcDvAN28280UN8aQ-EdSoIwJVglpW5VbCESV6OXuph5ayFTwQt_DGw/exec" class="formValues" method="POST" id="formValues">
+          <div class="row login-form">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="">Name</label>
+                <input class="form-control required" name="name">
+              </div>
+            </div>
+            <div class="col-md-3"></div>
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="">Password</label>
+                <input type="password" class="form-control password required" name="password">
+              </div>
+            </div>
+            <div class="col-md-3"></div>
+            <div class="d-flex justify-content-end">
+              <div class="col-md-4">
+                <button type="button" class="btn btn-primary mt-3 next-btn">Next</button>
+              </div>
+            </div>
+          </div>
+          <div class="row login-depend d-none">
+
+            <h3>Add Routine for <span class="month"></span> <span class="year"></span></h3>
+            <input type="hidden" name="form_name" value="user_exercise">
+            <input type="hidden" class="check-user" name="check_user" value="yes">
+            <input type="hidden" name="type" value="owner">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="">Users</label>
+                <select class="form-control select2 users required empty-select" name="user">
+                  <option value="" selected disabled>Select option</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-12 mb-3 table-responsive">
+              <table class="form-tabel table">
+                <thead class="thead-basic ">
+                  <tr>
+                    <th width="50%">Mov / Preps</th>
+                    <th width="20%">Sets</th>
+                    <th width="20%">Reps</th>
+                    <th width="10%">Action</th>
+                  </tr>
+                </thead>
+                <tbody class="mov-prep-tbody"></tbody>
+              </table>
+            </div>
+            <div class="col-12 table-responsive">
+              <table class="form-tabel table">
+                <thead class="thead-basic">
+                  <tr>
+                    <th width="60%">Exercise</th>
+                    <th width="10%">Sets</th>
+                    <th width="10%">Reps</th>
+                    <th width="10%">No. exercise</th>
+                    <th width="10%">Action</th>
+                  </tr>
+                </thead>
+                <tbody class="products"></tbody>
+              </table>
+            </div>
+            <div class="col-12">
+              <button type="button" class="btn btn-primary mt-3 btn-submit" disabled>Submit</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="https://kit.fontawesome.com/786d0bd98a.js" crossorigin="anonymous"></script>
+  <script src="assets/js/sweet-alert.js"></script>
+  <script src="assets/js/ResizeSensor.js"></script>
+  <script src="assets/js/custom.js"></script>
+  <script>
+    var excercise_option = '',
+      move_prep_option = '',
+      user_data = ''
+
+    function appendRow(excercise_option) {
+      $('.products').append(`
+    <tr>
+      <td>
+        <div>
+          <select class="form-control select2 exercises required empty-select" name="exercise">
+            <option value="" selected disabled>Select option</option>
+            ` + excercise_option + `
+          </select>
+        </div>
+      </td>
+      <td>
+        <div>
+          <input type="text" class="form-control no-of-set number required empty-input" name="no_of_set">
+        </div>
+      </td>
+      <td>
+        <div>
+          <input type="text" class="form-control no-of-reps number required empty-input" name="no_of_reps">
+        </div>
+      </td>
+      <td>
+        <div>
+          <input type="text" class="form-control no-of-exercise number required empty-input" name="no_of_exercise">
+        </div>
+      </td>
+      <td>
+        <i class="fa fa-plus bg-success text-light p-1 add-exercise"></i>
+      </td>
+    </tr>
+  `)
+      $("select.select2-hidden-accessible").select2('destroy');
+      $('.select2').select2({
+        width: '100%'
+      });
+    }
+
+
+    function appendMovPrep(mov_preps) {
+      $('.mov-prep-tbody').append(`
+    <tr>
+      <td>
+        <div>
+          <select class="form-control select2 mov-prep required empty-select" name="mov_prep">
+            <option value="" selected disabled>Select option</option>
+            ` + mov_preps + `
+          </select>
+        </div>
+      </td>
+      <td>
+        <div>
+          <input type="text" class="form-control no-of-set number required empty-input" name="no_of_set_mov_prep">
+        </div>
+      </td>
+      <td>
+        <div>
+          <input type="text" class="form-control no-of-reps number required empty-input" name="no_of_reps_mov_prep">
+        </div>
+      </td>
+      <td>
+        <i class="fa fa-plus bg-success text-light p-1 mov-prep-add"></i>
+      </td>
+    </tr>
+  `)
+      $("select.select2-hidden-accessible").select2('destroy');
+      $('.select2').select2({
+        width: '100%'
+      });
+    }
+
+    $(document).on('click', '.fa-trash', function() {
+      $(this).closest('tr').remove()
+    })
+
+    function appendData(exercises, users, mov_preps) {
+      excercise_option = '', move_prep_option = ''
+      for (var i = 0; i < exercises.length; i++) {
+        excercise_option += '<option value="' + exercises[i][0] + '">' + exercises[i][0] + '</option>'
+      }
+
+      for (var i = 0; i < mov_preps.length; i++) {
+        move_prep_option += '<option value="' + mov_preps[i][0] + '">' + mov_preps[i][0] + '</option>'
+      }
+
+      for (var i = 0; i < users.length; i++) {
+        if (users[i][2] == "client")
+          $('.users').append('<option value="' + users[i][0] + '">' + users[i][0] + '</option>')
+      }
+
+      appendRow(excercise_option)
+      appendMovPrep(move_prep_option)
+    }
+
+    $(document).on('change', '.users', function() {
+      $('.mov-prep-tbody, .products').empty()
+      appendMovPrep(move_prep_option)
+      appendRow(excercise_option)
+
+      if ($(this).find(":selected").val() != "") {
+        var flag = true,
+          exercise_flag = true
+
+        for (var i = 0; i < user_data.length; i++) {
+          if ($(this).find(":selected").val() == user_data[i][0]) {
+            if (user_data[i][4] == "mov / prep") {
+              var tr = $('.mov-prep-tbody').find('tr:last')
+              tr.find('.mov-prep option[value="' + user_data[i][1] + '"]').prop('selected', true)
+              tr.find('.no-of-set').val(user_data[i][2])
+              tr.find('.no-of-reps').val(user_data[i][3])
+
+              $('.mov-prep-add').click()
+
+              flag = false
+            }
+          }
+        }
+        if (!flag) {
+          $('.mov-prep-tbody').find('tr:last').remove()
+          $('.mov-prep-tbody').find('tr:last').find('.fa-trash').addClass('fa-plus bg-success mov-prep-add')
+          $('.mov-prep-tbody').find('tr:last').find('.fa-trash').removeClass('fa-trash bg-danger')
+        }
+
+        for (var i = 0; i < user_data.length; i++) {
+          if ($(this).find(":selected").val() == user_data[i][0]) {
+            if (user_data[i][4] == "exercise") {
+              var tr = $('.products').find('tr:last')
+              tr.find('.exercises option[value="' + user_data[i][1] + '"]').prop('selected', true)
+              tr.find('.no-of-set').val(user_data[i][2])
+              tr.find('.no-of-reps').val(user_data[i][3])
+              tr.find('.no-of-exercise').val(user_data[i][5])
+
+              $('.add-exercise').click()
+
+              exercise_flag = false
+            }
+          }
+        }
+        if (!exercise_flag) {
+          $('.products').find('tr:last').remove()
+          $('.products').find('tr:last').find('.fa-trash').addClass('fa-plus bg-success add-exercise')
+          $('.products').find('tr:last').find('.fa-trash').removeClass('fa-trash bg-danger')
+        }
+      }
+
+    })
+
+    $(document).on('click', '.add-exercise', function() {
+      $(this).addClass('fa-trash bg-danger')
+      $(this).removeClass('fa-plus bg-success add-exercise')
+      appendRow(excercise_option)
+    })
+
+    $(document).on('click', '.mov-prep-add', function() {
+      $(this).addClass('fa-trash bg-danger')
+      $(this).removeClass('fa-plus bg-success mov-prep-add')
+      appendMovPrep(move_prep_option)
+    })
+
+    // check password
+    $(document).on('click', '.next-btn', function(e) {
+      e.preventDefault();
+
+      if (!validate()) {
+        return false;
+      }
+
+      var form = $("#formValues");
+      $('.next-btn').attr('disabled', 'disabled');
+      $('.next-btn').text('Checking password...');
+      var url_gsheet = $('#formValues').attr("action");
+
+      $.ajax({
+        type: "POST",
+        url: url_gsheet,
+        data: $(form).serialize(),
+        success: function(response) {
+          if (response.result == "success") {
+            $('.login-depend').removeClass('d-none')
+            $('.login-form').addClass('d-none')
+            appendData(response.exercises, response.users, response.mov_preps)
+            user_data = response.month_data
+            $('.btn-submit').removeAttr('disabled')
+            $('.check-user').val('no')
+            $('.logoForm').attr("src", "./assets/images/company-logo.jpg")
+            $('.bg-image').removeClass('bg-image')
+            $('.formValues').removeClass('formValues')
+            $('.img-div').removeClass('d-none')
+          } else if (response.result == "not match") {
+            Swal.fire({
+              title: "Error!",
+              text: "Wrong Credentials",
+              icon: "error",
+            }).then(function() {
+              $('.next-btn').removeAttr('disabled');
+              $('.next-btn').text('Next');
+            });
+          } else {
+            Swal.fire({
+              title: "Error!",
+              text: response.error,
+              icon: "error",
+            }).then(function() {
+              $('.next-btn').removeAttr('disabled');
+              $('.next-btn').text('Next');
+            });
+          }
+        },
+        error: function(response) {
+          Swal.fire({
+            title: "Error!",
+            text: "Something went wrong",
+            icon: "error",
+          }).then(function() {
+            $('.next-btn').removeAttr('disabled');
+            $('.next-btn').text('Next');
+          });
+        }
+      });
+    })
+
+    $(document).on('click', '.btn-submit', function(e) {
+      e.preventDefault();
+
+      if (!validate()) {
+        return false;
+      }
+
+      var form = $("#formValues");
+      $('.btn-submit').attr('disabled', 'disabled');
+      $('.btn-submit').text('Please wait...');
+      var url_gsheet = $('#formValues').attr("action");
+      $.ajax({
+        type: "POST",
+        url: url_gsheet,
+        data: $(form).serialize(),
+        success: function(response) {
+          if (response.result == "success") {
+            Swal.fire({
+                title: "Good Job!",
+                text: "Thank you for submitting",
+                icon: "success",
+              })
+              .then(function() {
+                $('.btn-submit').removeAttr('disabled');
+                $('.btn-submit').text('Submit');
+                user_data = response.data
+                $('.users option[value=""]').prop('selected', true).change()
+              });
+            setTimeout(function() {
+              $('.btn-submit').removeAttr('disabled');
+              $('.btn-submit').text('Submit');
+              user_data = response.data
+              $('.users option[value=""]').prop('selected', true).change()
+            }, 3000);
+          } else {
+            Swal.fire({
+              title: "Error!",
+              text: response.error,
+              icon: "error",
+            }).then(function() {
+              $('.btn-submit').removeAttr('disabled');
+              $('.btn-submit').text('Submit Again');
+            });
+          }
+        },
+        error: function(response) {
+          Swal.fire({
+            title: "Error!",
+            text: "Something went wrong",
+            icon: "error",
+          }).then(function() {
+            $('.btn-submit').removeAttr('disabled');
+            $('.btn-submit').text('Submit Again');
+          });
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>
