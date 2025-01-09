@@ -292,12 +292,16 @@ input:read-only {
       .entry-form{
         width: 100%;
         padding: 10px;
+        min-height: 55rem;
       }
       .bgSquare{
         display: none;
       }
       .entry-form table td:last-child{
         width: 30%;
+      }
+      .formValues {
+        margin-top: 23rem !important;
       }
     }
     @media only screen and (max-width: 576px){
