@@ -101,12 +101,12 @@ input:read-only {
       font-weight: 500;
       padding-bottom: 6px;
     }
-    .entry-form button, .btn:focus{
+    .entry-form .btn, .btn:focus{
       background-color: #ee5023;
       font-weight: 500;
       font-size: 16px;
       height: 40px;
-    line-height: 20px;
+      line-height: 20px;
       border: 0;
       width: 100%;
       outline: 0 !important;

@@ -165,7 +165,8 @@ var day =
 
       for(var i=0; i<data.length; i++)
       {
-        if(data[i][4] == "exercise" && data[i][6] == day){
+        var day_arr = data[i][6].split(',')
+        if(data[i][4] == "exercise" && day_arr.indexOf(day) != -1){
           $('.login-depend').append(`
           <div class="col-12 my-3">
             <table class="form-tabel">
