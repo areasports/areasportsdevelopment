@@ -112,10 +112,11 @@
               <table class="form-tabel table">
                 <thead class="thead-basic">
                   <tr>
-                    <th width="60%">Exercise</th>
+                    <th width="50%">Exercise</th>
                     <th width="10%">Sets</th>
                     <th width="10%">Reps</th>
                     <th width="10%">No. exercise</th>
+                    <th width="10%">Day</th>
                     <th width="10%">Action</th>
                   </tr>
                 </thead>
@@ -168,6 +169,20 @@
       <td>
         <div>
           <input type="text" class="form-control no-of-exercise number required empty-input" name="no_of_exercise">
+        </div>
+      </td>
+      <td>
+        <div>
+          <select class="form-control select2 day required empty-select" name="day">
+            <option value="" selected disabled>Select option</option>
+            <option value="Monday">Monday</option>
+            <option value="Tuesday">Tuesday</option>
+            <option value="Wednesday">Wednesday</option>
+            <option value="Thursday">Thursday</option>
+            <option value="Friday">Friday</option>
+            <option value="Saturday">Saturday</option>
+            <option value="Sunday">Sunday</option>
+          </select>
         </div>
       </td>
       <td>
@@ -274,6 +289,7 @@
               tr.find('.no-of-set').val(user_data[i][2])
               tr.find('.no-of-reps').val(user_data[i][3])
               tr.find('.no-of-exercise').val(user_data[i][5])
+              tr.find('.day option[value="' + user_data[i][6] + '"]').prop('selected', true)
 
               $('.add-exercise').click()
 

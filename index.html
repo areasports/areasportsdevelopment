@@ -50,6 +50,7 @@
     <div class="entry-form bg-image" id="entry-form">
       <div class="col-md-12 img-div d-none">
         <img class="logoForm" src="" alt="company logo">
+         <!-- <h1>Area Sports</h1> -->
       </div>
       
       <form action="https://script.google.com/macros/s/AKfycbwsG_udq5z9GwE1EcDvAN28280UN8aQ-EdSoIwJVglpW5VbCESV6OXuph5ayFTwQt_DGw/exec" class="formValues" method="POST" id="formValues">
@@ -63,6 +64,7 @@
               <input type="hidden" name="form_name" value="weight">
               <input type="hidden" name="type" value="client">
               <input type="hidden" name="date" class="date">
+              <input type="hidden" name="day" class="day">
             </div>
           </div>
           <div class="col-md-3"></div>
@@ -94,9 +96,13 @@
 <script src="assets/js/ResizeSensor.js"></script>
 <script src="assets/js/custom.js"></script>
 <script> 
+var day = 
   $(document).ready(function(){
     var d = new Date();
     var today = addZero(d.getDate()) + '/' + addZero(d.getMonth()+1) + '/' + d.getFullYear()
+    var week_days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+    $('.day').val(week_days[d.getDay()])
+    day = week_days[d.getDay()]
     $('.date').val(today)
   })
   var count = 0
@@ -118,6 +124,7 @@
       $('.login-depend').append(`
       <h5><b>Clients Workout</b></h5>
       <h5>`+data[0][0]+`</h5>
+      <h5>Routine of `+day+`</h5>
       <div class="col-12 my-3">
         <table class="form-tabel">
           <thead class="semi-dark-gray">
@@ -158,7 +165,7 @@
 
       for(var i=0; i<data.length; i++)
       {
-        if(data[i][4] == "exercise"){
+        if(data[i][4] == "exercise" && data[i][6] == day){
           $('.login-depend').append(`
           <div class="col-12 my-3">
             <table class="form-tabel">
