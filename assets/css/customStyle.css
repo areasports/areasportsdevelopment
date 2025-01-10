@@ -238,7 +238,7 @@ input:read-only {
     .entry-form td,.entry-form table th{
         text-align: center;
         padding: 10px;
-        font-size: 18px;
+        font-size: 14px;
     }
     .form-tabel td:last-child input{
         text-align: center;
