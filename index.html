@@ -98,8 +98,7 @@
 <script src="assets/js/ResizeSensor.js"></script>
 <script src="assets/js/custom.js"></script>
 <script> 
-var day = '',
-weight = ''
+var day = ''
   $(document).ready(function(){
     var d = new Date();
     var today = addZero(d.getDate()) + '/' + addZero(d.getMonth()+1) + '/' + d.getFullYear()
@@ -109,15 +108,10 @@ weight = ''
     $('.date').val(today)
   })
   var count = 0
-  function appendData(data, getweight)
+  function appendData(data)
   {
     if(data.length > 0)
     {
-
-      for(var i=0; i<getweight.length; i++)
-      {
-        weight += '<option value="'+getweight[i]+'">'+getweight[i]+'</option>'
-      }
 
       data.sort((a, b) => parseInt(a[5]) - parseInt(b[5]));
 
@@ -196,9 +190,7 @@ weight = ''
               <div class="col-md-2 col-3">
                 <div class="mb-3">
                   <label>w`+(parseInt(j)+1)+`</label>
-                  <select class="form-control select2 required empty-select"  name="w_`+i+`">
-                    <option value="" selected disabled>Add weight</option>`+weight+`
-                  </select>
+                  <input class="form-control required empty-input"  name="w_`+i+`">
                 </div>
               </div>
             `)
@@ -247,7 +239,7 @@ weight = ''
             if(response.result == "success"){
                 $('.login-depend').removeClass('d-none')
                 $('.login-form').addClass('d-none')
-                appendData(response.data, response.weight)
+                appendData(response.data)
                 $('.btn-submit').removeAttr('disabled')
                 $('.check-user').val('no')
                 $('.logoForm').attr("src","./assets/images/company-logo.jpg")
