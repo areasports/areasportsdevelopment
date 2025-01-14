@@ -98,7 +98,7 @@
 <script src="assets/js/ResizeSensor.js"></script>
 <script src="assets/js/custom.js"></script>
 <script> 
-var day = ''
+var day = '', exercise_option = '', preview_exercise = []
   $(document).ready(function(){
     var d = new Date();
     var today = addZero(d.getDate()) + '/' + addZero(d.getMonth()+1) + '/' + d.getFullYear()
@@ -107,12 +107,19 @@ var day = ''
     day = week_days[d.getDay()]
     $('.date').val(today)
   })
+
+  function getExercise(exercise)
+  {
+    for(var i=0; i<exercise.length; i++)
+    {
+      exercise_option += '<option value="'+exercise[i][0]+'">'+exercise[i][0]+'</option>'
+    }
+  }
   var count = 0
   function appendData(data)
   {
     if(data.length > 0)
     {
-
       data.sort((a, b) => parseInt(a[5]) - parseInt(b[5]));
 
       data.sort((a, b) => {
@@ -127,7 +134,43 @@ var day = ''
       $('.login-depend').append(`
       <h5><b>Clients Workout</b></h5>
       <h5>`+data[0][0]+`</h5>
-      <h5>Routine of `+day+`</h5>
+      <div class="col-md-6 mb-3">
+        <h5>Routine of `+day+`</h5>
+      </div>
+      <div class="col-md-2"></div>
+
+      <div class="col-12 my-3">
+        <table class="form-tabel">
+          <thead class="semi-dark-gray">
+              <tr>
+                  <th width="15%">
+                    <select class="form-control select2 hide-show">
+                      <option value="Hide" selected>Hide</option>
+                      <option value="Show">Show</option>
+                    </select>
+                  </th>
+                  <th width="85%">Preview Exercise Routine</th>
+              </tr>
+          </thead>
+        </table>
+      </div>
+      <div class="preview-depend d-none">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label>Select Exercise</label>
+              <select class="form-control select2 view-exercise">
+                <option value="" selected disabled>Select Option</option>
+                `+exercise_option+`
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row exercise-depend">
+          
+        </div>
+      </div>
+
       <div class="col-12 my-3">
         <table class="form-tabel">
           <thead class="semi-dark-gray">
@@ -218,6 +261,57 @@ var day = ''
     
   }
 
+  $(document).on('change','.hide-show',function(){
+    if($(this).find(":selected").val() == "Show")
+    {
+      $('.preview-depend').removeClass('d-none')
+    }
+    else
+    {
+      $('.preview-depend').addClass('d-none')
+    }
+  })
+
+  $(document).on('change','.view-exercise',function(){
+    if($(this).find(":selected").val() != "")
+    {
+      $('.exercise-depend').empty()
+      var exercise_count = 0
+
+      for(var i=0; i< preview_exercise.length; i++)
+      {
+        if(exercise_count < 4 && preview_exercise[i][1] == $(this).find(":selected").val())
+        {
+          $('.exercise-depend').append(`
+            <div class="col-12 my-3">
+              <table class="form-tabel">
+                <thead class="semi-dark-gray">
+                    <tr>
+                        <th width="25%">Sets: ${preview_exercise[i][2]}</th>
+                        <th width="25%">Reps: ${preview_exercise[i][3]}</th>
+                        <th width="25%">Total Reps: ${preview_exercise[i][14]}</th>
+                        <th width="25%">Total Weight: ${preview_exercise[i][16]}</th>
+                    </tr>
+                </thead>
+            </div>
+          `)
+          for(var j=4; j<(preview_exercise[i].length - 7); j++){
+            if(preview_exercise[i][j] != ""){
+              $('.exercise-depend').append(`
+              <div class="col-2 col-3">
+                <div class="mb-3">
+                  <p>w-${(j-3)}: ${preview_exercise[i][j]}</p>
+                </div>
+              </div>
+              `)
+            }
+          }
+          exercise_count++
+        }
+      }
+    }
+  })
+
   // check password
   $(document).on('click','.next-btn',function(e){ 
     e.preventDefault();
@@ -239,6 +333,7 @@ var day = ''
             if(response.result == "success"){
                 $('.login-depend').removeClass('d-none')
                 $('.login-form').addClass('d-none')
+                getExercise(response.exercises)
                 appendData(response.data)
                 $('.btn-submit').removeAttr('disabled')
                 $('.check-user').val('no')
@@ -246,6 +341,7 @@ var day = ''
                 $('.bg-image').removeClass('bg-image')
                 $('.formValues').removeClass('formValues')
                 $('.img-div').removeClass('d-none')
+                preview_exercise = response.routine_data
             }
             else if(response.result == "not match")
             {

@@ -340,3 +340,11 @@ input:read-only {
     .formValues{
       margin-top: 14rem;
     }
+    
+    .btn-preview{
+      background: rgb(12, 132, 12) !important;
+      width: 71% !important;
+      text-align: center !important;
+      font-weight: bold !important;
+      color: white;
+    }
