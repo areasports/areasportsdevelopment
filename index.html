@@ -35,7 +35,7 @@
         background-color: #4a4a4a;
       }
       .light-gray{
-        background-color: #989898;
+        background-color: #ee5023;
       }
       .yellow-bg{
         background: yellow;
@@ -280,27 +280,30 @@ var day = '', exercise_option = '', preview_exercise = []
 
       for(var i=0; i< preview_exercise.length; i++)
       {
-        if(exercise_count < 4 && preview_exercise[i][1] == $(this).find(":selected").val())
+        if(exercise_count < 4 && preview_exercise[i][2] == $(this).find(":selected").val() )
         {
           $('.exercise-depend').append(`
             <div class="col-12 my-3">
               <table class="form-tabel">
                 <thead class="semi-dark-gray">
                     <tr>
-                        <th width="25%">Sets: ${preview_exercise[i][2]}</th>
-                        <th width="25%">Reps: ${preview_exercise[i][3]}</th>
-                        <th width="25%">Total Reps: ${preview_exercise[i][14]}</th>
-                        <th width="25%">Total Weight: ${preview_exercise[i][16]}</th>
+                        <th width="25%">Sets: ${preview_exercise[i][3]}</th>
+                        <th width="25%">Reps: ${preview_exercise[i][4]}</th>
+                        <th width="25%">Total Reps: ${preview_exercise[i][15]}</th>
+                        <th width="25%">Total Weight: ${preview_exercise[i][17]}</th>
                     </tr>
                 </thead>
             </div>
+            <div class="col-12">
+              ${preview_exercise[i][0]}
+            </div>
           `)
-          for(var j=4; j<(preview_exercise[i].length - 7); j++){
+          for(var j=5; j<(preview_exercise[i].length - 7); j++){
             if(preview_exercise[i][j] != ""){
               $('.exercise-depend').append(`
               <div class="col-2 col-3">
                 <div class="mb-3">
-                  <p>w-${(j-3)}: ${preview_exercise[i][j]}</p>
+                  <p>Weight Reps <input class="form-control" value="${preview_exercise[i][j]}" readonly></p>
                 </div>
               </div>
               `)
