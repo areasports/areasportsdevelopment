@@ -132,12 +132,18 @@ var day = '', exercise_option = '', preview_exercise = []
       
       $('.login-depend').empty()
       $('.login-depend').append(`
-      <h5><b>Clients Workout</b></h5>
-      <h5>`+data[0][0]+`</h5>
-      <div class="col-md-6 mb-3">
-        <h5>Routine of `+day+`</h5>
+
+      <div class="col-12 my-3">
+        <table class="form-tabel">
+          <thead class="semi-dark-gray">
+              <tr>
+                  <td width="15%" class="text-white">Clients Workout</td>
+                  <td width="45%" class="text-white">`+data[0][0]+`</td>
+                  <td width="40%" class="text-white">Routine of `+day+`</td>
+              </tr>
+          </thead>
+        </table>
       </div>
-      <div class="col-md-2"></div>
 
       <div class="col-12 my-3">
         <table class="form-tabel">
