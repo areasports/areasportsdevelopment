@@ -57,7 +57,9 @@
         <div class="col-md-12 img-div d-none">
           <img class="logoForm" src="" alt="company logo">
         </div>
-        <form action="https://script.google.com/macros/s/AKfycbwsG_udq5z9GwE1EcDvAN28280UN8aQ-EdSoIwJVglpW5VbCESV6OXuph5ayFTwQt_DGw/exec" class="formValues" method="POST" id="formValues">
+        <form
+          action="https://script.google.com/macros/s/AKfycbwsG_udq5z9GwE1EcDvAN28280UN8aQ-EdSoIwJVglpW5VbCESV6OXuph5ayFTwQt_DGw/exec"
+          class="formValues" method="POST" id="formValues">
           <div class="row login-form">
             <div class="col-md-3"></div>
             <div class="col-md-6">
@@ -102,7 +104,6 @@
                     <th width="50%">Mov / Preps</th>
                     <th width="20%">Sets</th>
                     <th width="20%">Reps</th>
-                    <th width="10%">Action</th>
                   </tr>
                 </thead>
                 <tbody class="mov-prep-tbody"></tbody>
@@ -198,7 +199,7 @@
       });
     }
 
-    $(document).on('change','.day',function(){
+    $(document).on('change', '.day', function () {
       var value = $(this).val()
       $(this).closest('tr').find('.add-days').val(value)
     })
@@ -225,6 +226,24 @@
           <input type="text" class="form-control no-of-reps number required empty-input" name="no_of_reps_mov_prep">
         </div>
       </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <div>
+          <select class="form-control select2 day required empty-select" multiple="multiple">
+            <optgroup label="Add days">
+              <option value="Monday">Monday</option>
+              <option value="Tuesday">Tuesday</option>
+              <option value="Wednesday">Wednesday</option>
+              <option value="Thursday">Thursday</option>
+              <option value="Friday">Friday</option>
+              <option value="Saturday">Saturday</option>
+              <option value="Sunday">Sunday</option>
+            </optgroup>
+          </select>
+          <input type="hidden" name="mov_day" class="add-days">
+        </div>
+      </td>
       <td>
         <i class="fa fa-plus bg-success text-light p-1 mov-prep-add"></i>
       </td>
@@ -236,7 +255,7 @@
       });
     }
 
-    $(document).on('click', '.fa-trash', function() {
+    $(document).on('click', '.fa-trash', function () {
       $(this).closest('tr').prev('tr').remove()
       $(this).closest('tr').remove()
     })
@@ -260,7 +279,7 @@
       appendMovPrep(move_prep_option)
     }
 
-    $(document).on('change', '.users', function() {
+    $(document).on('change', '.users', function () {
       $('.mov-prep-tbody, .products').empty()
       appendMovPrep(move_prep_option)
       appendRow(excercise_option)
@@ -272,10 +291,16 @@
         for (var i = 0; i < user_data.length; i++) {
           if ($(this).find(":selected").val() == user_data[i][0]) {
             if (user_data[i][4] == "mov / prep") {
-              var tr = $('.mov-prep-tbody').find('tr:last')
-              tr.find('.mov-prep option[value="' + user_data[i][1] + '"]').prop('selected', true)
-              tr.find('.no-of-set').val(user_data[i][2])
-              tr.find('.no-of-reps').val(user_data[i][3])
+              var prev_tr = $('.mov-prep-tbody').find('tr:last').prev('tr'),
+                tr = $('.mov-prep-tbody').find('tr:last')
+              prev_tr.find('.mov-prep option[value="' + user_data[i][1] + '"]').prop('selected', true)
+              prev_tr.find('.no-of-set').val(user_data[i][2])
+              prev_tr.find('.no-of-reps').val(user_data[i][3])
+
+              var day_arr = user_data[i][6].split(",")
+              for (var j = 0; j < day_arr.length; j++) {
+                tr.find('.day option[value="' + day_arr[j].trim() + '"]').prop('selected', true).change()
+              }
 
               $('.mov-prep-add').click()
 
@@ -284,6 +309,7 @@
           }
         }
         if (!flag) {
+          $('.mov-prep-tbody').find('tr:last').prev('tr').remove()
           $('.mov-prep-tbody').find('tr:last').remove()
           $('.mov-prep-tbody').find('tr:last').find('.fa-trash').addClass('fa-plus bg-success mov-prep-add')
           $('.mov-prep-tbody').find('tr:last').find('.fa-trash').removeClass('fa-trash bg-danger')
@@ -293,7 +319,7 @@
           if ($(this).find(":selected").val() == user_data[i][0]) {
             if (user_data[i][4] == "exercise") {
               var prev_tr = $('.products').find('tr:last').prev('tr'),
-              tr = $('.products').find('tr:last')
+                tr = $('.products').find('tr:last')
               console.log(user_data[i][1])
               prev_tr.find('.exercises option[value="' + user_data[i][1] + '"]').prop('selected', true).change()
               prev_tr.find('.no-of-set').val(user_data[i][2])
@@ -301,16 +327,15 @@
               prev_tr.find('.no-of-exercise').val(user_data[i][5])
 
               var day_arr = user_data[i][6].split(",")
-              for(var j=0; j<day_arr.length; j++)
-              {
-                tr.find('.day option[value="'+day_arr[j].trim()+'"]').prop('selected', true).change()
+              for (var j = 0; j < day_arr.length; j++) {
+                tr.find('.day option[value="' + day_arr[j].trim() + '"]').prop('selected', true).change()
               }
 
               // const daysString = user_data[i][6]; 
-              
+
               // const selectedDays = daysString.split(', ').map(day => day.trim()); // ["Tuesday", "Monday"]
               // console.log(selectedDays)
-              
+
 
               $('.add-exercise').click()
 
@@ -328,20 +353,20 @@
 
     })
 
-    $(document).on('click', '.add-exercise', function() {
+    $(document).on('click', '.add-exercise', function () {
       $(this).addClass('fa-trash bg-danger')
       $(this).removeClass('fa-plus bg-success add-exercise')
       appendRow(excercise_option)
     })
 
-    $(document).on('click', '.mov-prep-add', function() {
+    $(document).on('click', '.mov-prep-add', function () {
       $(this).addClass('fa-trash bg-danger')
       $(this).removeClass('fa-plus bg-success mov-prep-add')
       appendMovPrep(move_prep_option)
     })
 
     // check password
-    $(document).on('click', '.next-btn', function(e) {
+    $(document).on('click', '.next-btn', function (e) {
       e.preventDefault();
 
       if (!validate()) {
@@ -357,7 +382,7 @@
         type: "POST",
         url: url_gsheet,
         data: $(form).serialize(),
-        success: function(response) {
+        success: function (response) {
           if (response.result == "success") {
             $('.login-depend').removeClass('d-none')
             $('.login-form').addClass('d-none')
@@ -374,7 +399,7 @@
               title: "Error!",
               text: "Wrong Credentials",
               icon: "error",
-            }).then(function() {
+            }).then(function () {
               $('.next-btn').removeAttr('disabled');
               $('.next-btn').text('Next');
             });
@@ -383,18 +408,18 @@
               title: "Error!",
               text: response.error,
               icon: "error",
-            }).then(function() {
+            }).then(function () {
               $('.next-btn').removeAttr('disabled');
               $('.next-btn').text('Next');
             });
           }
         },
-        error: function(response) {
+        error: function (response) {
           Swal.fire({
             title: "Error!",
             text: "Something went wrong",
             icon: "error",
-          }).then(function() {
+          }).then(function () {
             $('.next-btn').removeAttr('disabled');
             $('.next-btn').text('Next');
           });
@@ -402,7 +427,7 @@
       });
     })
 
-    $(document).on('click', '.btn-submit', function(e) {
+    $(document).on('click', '.btn-submit', function (e) {
       e.preventDefault();
 
       if (!validate()) {
@@ -417,20 +442,20 @@
         type: "POST",
         url: url_gsheet,
         data: $(form).serialize(),
-        success: function(response) {
+        success: function (response) {
           if (response.result == "success") {
             Swal.fire({
-                title: "Good Job!",
-                text: "Thank you for submitting",
-                icon: "success",
-              })
-              .then(function() {
+              title: "Good Job!",
+              text: "Thank you for submitting",
+              icon: "success",
+            })
+              .then(function () {
                 $('.btn-submit').removeAttr('disabled');
                 $('.btn-submit').text('Submit');
                 user_data = response.data
                 $('.users option[value=""]').prop('selected', true).change()
               });
-            setTimeout(function() {
+            setTimeout(function () {
               $('.btn-submit').removeAttr('disabled');
               $('.btn-submit').text('Submit');
               user_data = response.data
@@ -441,18 +466,18 @@
               title: "Error!",
               text: response.error,
               icon: "error",
-            }).then(function() {
+            }).then(function () {
               $('.btn-submit').removeAttr('disabled');
               $('.btn-submit').text('Submit Again');
             });
           }
         },
-        error: function(response) {
+        error: function (response) {
           Swal.fire({
             title: "Error!",
             text: "Something went wrong",
             icon: "error",
-          }).then(function() {
+          }).then(function () {
             $('.btn-submit').removeAttr('disabled');
             $('.btn-submit').text('Submit Again');
           });
