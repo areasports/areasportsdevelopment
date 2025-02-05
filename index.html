@@ -107,7 +107,7 @@
   <script src="assets/js/ResizeSensor.js"></script>
   <script src="assets/js/custom.js"></script>
   <script>
-    var day = '', exercise_option = '', preview_exercise = [], exercises = []
+    var day = '', exercise_option = '', preview_exercise = [], exercises = [], notes = []
     $(document).ready(function () {
       var d = new Date();
       var today = addZero(d.getDate()) + '/' + addZero(d.getMonth() + 1) + '/' + d.getFullYear()
@@ -140,11 +140,11 @@
 
       <div class="col-12 my-3">
         <table class="form-tabel">
-          <thead class="semi-dark-gray">
+          <thead>
               <tr>
-                  <td width="15%" class="text-white">Clients Workout</td>
-                  <td width="45%" class="text-white">`+ data[0][0] + `</td>
-                  <td width="40%" class="text-white">Routine of `+ day + `</td>
+                  <td width="15%">Clients Workout</td>
+                  <td width="45%">`+ data[0][0] + `</td>
+                  <td width="40%">Routine of `+ day + `</td>
               </tr>
           </thead>
         </table>
@@ -183,78 +183,66 @@
       </div>
 
       <div class="col-12 my-3">
-        <table class="form-tabel">
-          <thead class="semi-dark-gray">
-              <tr>
-                  <th width="60%">Mov / Preps</th>
-                  <th width="20%">Sets</th>
-                  <th width="20%">Reps</th>
-              </tr>
-          </thead>
-          <tbody class="mov-prep-tbody"></tbody>
-        </table>
+        <label>Note from coach</label>
+        <textarea class="form-control note-from-coach" style="height:auto;" rows="3" readonly></textarea>
       </div>`)
         for (var i = 0; i < data.length; i++) {
           var day_arr = data[i][6].split(',')
-          if (data[i][4] == "mov / prep" && day_arr.indexOf(day) != -1) {
-            $('.mov-prep-tbody').append(`
-            <tr>
-              <td>${data[i][1] != "" ? data[i][1] : "<b>-</b>"}</td>
-              <td>${data[i][2] != "" ? data[i][2] : "<b>-</b>"}</td>
-              <td>${data[i][3] != "" ? data[i][3] : "<b>-</b>"}</td>
-            </tr>
-          `)
+          if (data[i][4] == "note" && day_arr.indexOf(day) != -1) {
+            notes.push(data[i][1])
           }
         }
 
+        $('.note-from-coach').val(notes.join(', '))
+
         $('.login-depend').append(`
-      <div class="col-12">
-        <table class="form-tabel">
-          <thead class="semi-dark-gray">
-              <tr>
-                  <th colspan="4">Exercise</th>
-              </tr>
-          </thead>
-        </table>
-      </div>
-      `)
+              <div class="col-12">
+                <table class="form-tabel">
+                  <thead class="semi-dark-gray">
+                    <tr>
+                      <th colspan="4">Exercise</th>
+                    </tr>
+                  </thead>
+                </table>
+      </div >
+            `)
 
         for (var i = 0; i < data.length; i++) {
           var day_arr = data[i][6].split(',')
           if (data[i][4] == "exercise" && day_arr.indexOf(day) != -1) {
             $('.login-depend').append(`
-          <div class="col-12 my-3">
-            <table class="form-tabel">
-              <tbody class="exercise-tbody semi-dark-gray">
-                <tr>
-                  <th width="10%" class="light-gray">${data[i][5] != "" ? data[i][5] : "<b>-</b>"}</th>
-                  <th width="20%">${data[i][1] != "" ? data[i][1] : "<b>-</b>"}<input type="hidden" name="excercise_` + i + `" value="` + data[i][1] + `"></th>
-                  <th width="15%">Sets ${data[i][2] != "" ? data[i][2] : "<b>-</b>"}<input type="hidden" name="set_` + i + `" value="` + data[i][2] + `"></th>
-                  <th width="15%">Reps ${data[i][3] != "" ? data[i][3] : "<b>-</b>"}<input type="hidden" name="rep_` + i + `" value="` + data[i][3] + `"></th>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          `)
+            <div class="col-12 my-3">
+              <table class="form-tabel">
+                <tbody class="exercise-tbody semi-dark-gray">
+                  <tr>
+                    <th width="10%" class="light-gray">${data[i][5] != "" ? data[i][5] : "<b>-</b>"}</th>
+                    <th width="20%">${data[i][1] != "" ? data[i][1] : "<b>-</b>"}<input type="hidden" name="excercise_` + i + `" value="` + data[i][1] + `"></th>
+                    <th width="15%">Sets ${data[i][2] != "" ? data[i][2] : "<b>-</b>"}<input type="hidden" name="set_` + i + `" value="` + data[i][2] + `"></th>
+                    <th width="15%">Reps ${data[i][3] != "" ? data[i][3] : "<b>-</b>"}<input type="hidden" name="rep_` + i + `" value="` + data[i][3] + `"></th>
+                  </tr>
+                </tbody>
+              </table>
+          </div >
+            `)
             console.log(exercises)
             for (var j = 0; j < exercises.length; j++) {
               if (data[i][1] == exercises[j][0] && exercises[j][1] != "") {
                 $('.login-depend').append(`
-                  <div class="col-12">
-                    <div class="mb-3">
-                      <iframe width="100%" height="250" src="${exercises[j][1]}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-                  </div>
-                `)
+            <div class="col-12">
+              <div class="mb-3">
+                <iframe width="100%" height="250" src="${exercises[j][1]}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              </div>
+                  </div >
+            `)
               }
             }
             for (var j = 0; j < data[i][2]; j++) {
               $('.login-depend').append(`
-              <div class="col-md-2 col-3">
-                <div class="mb-3">
-                  <label>w`+ (parseInt(j) + 1) + `</label>
-                  <input class="form-control required empty-input number"  name="w_`+ i + `">
-                </div>
+            <div class="col-md-2 col-3">
+              <div class="mb-3">
+                <label>w`+ (parseInt(j) + 1) + `</label>
+                <input class="form-control required empty-input number" name="w_`+ i + `">
+              </div>
               </div>
             `)
             }
@@ -263,11 +251,11 @@
         }
 
         $('.login-depend').append(`
-        <div class="col-12">
-          <input type="hidden" name="count" value="`+ count + `">
-          <button type="button" class="btn btn-primary mt-3 btn-submit" disabled>Submit</button>
-        </div>
-      `)
+            <div class= "col-12">
+              <input type="hidden" name="count" value="`+ count + `">
+                <button type="button" class="btn btn-primary mt-3 btn-submit" disabled>Submit</button>
+              </div>
+          `)
         $("select.select2-hidden-accessible").select2('destroy');
         $('.select2').select2({
           width: '100%'
@@ -315,11 +303,11 @@
             for (var j = 5; j < (preview_exercise[i].length - 7); j++) {
               if (preview_exercise[i][j] != "") {
                 $('.exercise-depend').append(`
-              <div class="col-2 col-3">
-                <div class="mb-3">
-                  <p>Weight Reps <input class="form-control" value="${preview_exercise[i][j]}" readonly></p>
-                </div>
+            < div class= "col-2 col-3" >
+              <div class="mb-3">
+                <p>Weight Reps <input class="form-control" value="${preview_exercise[i][j]}" readonly></p>
               </div>
+              </div >
               `)
               }
             }

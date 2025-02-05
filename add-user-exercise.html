@@ -101,9 +101,7 @@
               <table class="form-tabel table">
                 <thead class="thead-basic ">
                   <tr>
-                    <th width="50%">Mov / Preps</th>
-                    <th width="20%">Sets</th>
-                    <th width="20%">Reps</th>
+                    <th colspan="2" width="100%">Note</th>
                   </tr>
                 </thead>
                 <tbody class="mov-prep-tbody"></tbody>
@@ -208,27 +206,14 @@
     function appendMovPrep(mov_preps) {
       $('.mov-prep-tbody').append(`
     <tr>
-      <td>
+      <td width="100%" colspan="2">
         <div>
-          <select class="form-control select2 mov-prep required empty-select" name="mov_prep">
-            <option value="" selected disabled>Select option</option>
-            ` + mov_preps + `
-          </select>
-        </div>
-      </td>
-      <td>
-        <div>
-          <input type="text" class="form-control no-of-set number required empty-input" name="no_of_set_mov_prep">
-        </div>
-      </td>
-      <td>
-        <div>
-          <input type="text" class="form-control no-of-reps number required empty-input" name="no_of_reps_mov_prep">
+          <textarea class="form-control required note" name="note" rows="2" style="height:auto;"></textarea>
         </div>
       </td>
     </tr>
     <tr>
-      <td colspan="2">
+      <td width="90%">
         <div>
           <select class="form-control select2 day required empty-select" multiple="multiple">
             <optgroup label="Add days">
@@ -244,7 +229,7 @@
           <input type="hidden" name="mov_day" class="add-days">
         </div>
       </td>
-      <td>
+      <td width="10%">
         <i class="fa fa-plus bg-success text-light p-1 mov-prep-add"></i>
       </td>
     </tr>
@@ -290,12 +275,10 @@
 
         for (var i = 0; i < user_data.length; i++) {
           if ($(this).find(":selected").val() == user_data[i][0]) {
-            if (user_data[i][4] == "mov / prep") {
+            if (user_data[i][4] == "note") {
               var prev_tr = $('.mov-prep-tbody').find('tr:last').prev('tr'),
                 tr = $('.mov-prep-tbody').find('tr:last')
-              prev_tr.find('.mov-prep option[value="' + user_data[i][1] + '"]').prop('selected', true)
-              prev_tr.find('.no-of-set').val(user_data[i][2])
-              prev_tr.find('.no-of-reps').val(user_data[i][3])
+              prev_tr.find('.note').val(user_data[i][1])
 
               var day_arr = user_data[i][6].split(",")
               for (var j = 0; j < day_arr.length; j++) {
