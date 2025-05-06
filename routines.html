@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Area Sports || Add Routine</title>
+  <title>Area Sports || Routines</title>
   <meta charset="utf-8">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/images/company-logo.png">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/images/company-logo.png">
@@ -85,27 +85,25 @@
           </div>
           <div class="row login-depend d-none">
 
-            <h3>Add Routine for <span class="month"></span> <span class="year"></span></h3>
-            <input type="hidden" name="form_name" value="user_exercise">
+            <h3>Routines</h3>
+            <input type="hidden" name="form_name" value="routines">
             <input type="hidden" class="check-user" name="check_user" value="yes">
             <input type="hidden" name="type" value="owner">
             <div class="col-md-6">
               <div class="mb-3">
-                <label for="">Users</label>
-                <select class="form-control select2 users required empty-select" name="user">
+                <label for="">Routines</label>
+                <select class="form-control routine required empty-select" name="routine">
                   <option value="" selected disabled>Select option</option>
                 </select>
               </div>
             </div>
             <div class="col-md-6">
               <div class="mb-3">
-                <label for="">Routine</label>
-                <select class="form-control select2 routine required empty-select" name="routine">
-                  <option value="" selected disabled>Select option</option>
-                </select>
+                <label for="">Routine Name</label>
+                <input type="text" class="form-control routine-name required" name="routine_name">
               </div>
             </div>
-            <div class="col-12 mb-3 table-responsive">
+            <div class="col-12 mb-3 table-responsive d-none">
               <table class="form-tabel table">
                 <thead class="thead-basic ">
                   <tr>
@@ -115,7 +113,7 @@
                 <tbody class="mov-prep-tbody"></tbody>
               </table>
             </div>
-            <div class="col-12 table-responsive">
+            <div class="col-12 table-responsive d-none">
               <table class="form-tabel table">
                 <thead class="thead-basic">
                   <tr>
@@ -166,8 +164,15 @@
   <script>
     var excercise_option = '',
       move_prep_option = '',
-      user_data = '',
-      all_routines = ''
+      all_routines = '',
+      routine = []
+
+      $(document).ready(function(){
+        $('.routine').select2({
+          width: '100%',
+          tags: true
+        });
+      })
 
     function appendRow(excercise_option) {
       $('.products').append(`
@@ -222,6 +227,10 @@
       $('.select2').select2({
         width: '100%'
       });
+      $('.routine').select2({
+        width: '100%',
+        tags: true
+      });
     }
 
     $(document).on('change', '.day', function () {
@@ -265,6 +274,10 @@
       $('.select2').select2({
         width: '100%'
       });
+      $('.routine').select2({
+        width: '100%',
+        tags: true
+      });
     }
 
     $(document).on('click', '.fa-trash', function () {
@@ -272,7 +285,7 @@
       $(this).closest('tr').remove()
     })
 
-    function appendData(exercises, users, mov_preps) {
+    function appendData(exercises, mov_preps) {
       excercise_option = '', move_prep_option = ''
       for (var i = 0; i < exercises.length; i++) {
         excercise_option += '<option value="' + exercises[i][0] + '">' + exercises[i][0] + '</option>'
@@ -282,22 +295,26 @@
         move_prep_option += '<option value="' + mov_preps[i][0] + '">' + mov_preps[i][0] + '</option>'
       }
 
-      for (var i = 0; i < users.length; i++) {
-        if (users[i][2] == "client")
-          $('.users').append('<option value="' + users[i][0] + '">' + users[i][0] + '</option>')
-      }
-
       appendRow(excercise_option)
       appendMovPrep(move_prep_option)
     }
 
+    $(document).on('input','.routine-name',function(){
+      var routine_value = $('.routine').find(":selected").val()
+      if(routine_value != "" && routine.indexOf($(this).val()) != -1){
+        $(this).val(routine_value)
+      }
+    })
 
     $(document).on('change', '.routine', function () {
+      $('.table-responsive').removeClass('d-none')
       $('.mov-prep-tbody, .products').empty()
       appendMovPrep(move_prep_option)
       appendRow(excercise_option)
+      $('.routine-name').val('')
 
       if ($(this).find(":selected").val() != "") {
+        $('.routine-name').val($(this).find(":selected").val())
         var flag = true,
           exercise_flag = true
 
@@ -364,80 +381,6 @@
 
     })
 
-
-    $(document).on('change', '.users', function () {
-      $('.mov-prep-tbody, .products').empty()
-      $('.routine option[value=""]').prop('selected', true)
-      appendMovPrep(move_prep_option)
-      appendRow(excercise_option)
-
-      if ($(this).find(":selected").val() != "") {
-        var flag = true,
-          exercise_flag = true
-
-        for (var i = 0; i < user_data.length; i++) {
-          if ($(this).find(":selected").val() == user_data[i][0]) {
-            if (user_data[i][4] == "note") {
-              var prev_tr = $('.mov-prep-tbody').find('tr:last').prev('tr'),
-                tr = $('.mov-prep-tbody').find('tr:last')
-              prev_tr.find('.note').val(user_data[i][1])
-
-              var day_arr = user_data[i][6].split(",")
-              for (var j = 0; j < day_arr.length; j++) {
-                tr.find('.day option[value="' + day_arr[j].trim() + '"]').prop('selected', true).change()
-              }
-
-              $('.mov-prep-add').click()
-
-              flag = false
-            }
-          }
-        }
-        if (!flag) {
-          $('.mov-prep-tbody').find('tr:last').prev('tr').remove()
-          $('.mov-prep-tbody').find('tr:last').remove()
-          $('.mov-prep-tbody').find('tr:last').find('.fa-trash').addClass('fa-plus bg-success mov-prep-add')
-          $('.mov-prep-tbody').find('tr:last').find('.fa-trash').removeClass('fa-trash bg-danger')
-        }
-
-        for (var i = 0; i < user_data.length; i++) {
-          if ($(this).find(":selected").val() == user_data[i][0]) {
-            if (user_data[i][4] == "exercise") {
-              var prev_tr = $('.products').find('tr:last').prev('tr'),
-                tr = $('.products').find('tr:last')
-              console.log(user_data[i][1])
-              prev_tr.find('.exercises option[value="' + user_data[i][1] + '"]').prop('selected', true).change()
-              prev_tr.find('.no-of-set').val(user_data[i][2])
-              prev_tr.find('.no-of-reps').val(user_data[i][3])
-              prev_tr.find('.no-of-exercise').val(user_data[i][5])
-
-              var day_arr = user_data[i][6].split(",")
-              for (var j = 0; j < day_arr.length; j++) {
-                tr.find('.day option[value="' + day_arr[j].trim() + '"]').prop('selected', true).change()
-              }
-
-              // const daysString = user_data[i][6]; 
-
-              // const selectedDays = daysString.split(', ').map(day => day.trim()); // ["Tuesday", "Monday"]
-              // console.log(selectedDays)
-
-
-              $('.add-exercise').click()
-
-              exercise_flag = false
-            }
-          }
-        }
-        if (!exercise_flag) {
-          $('.products').find('tr:last').prev('tr').remove()
-          $('.products').find('tr:last').remove()
-          $('.products').find('tr:last').find('.fa-trash').addClass('fa-plus bg-success add-exercise')
-          $('.products').find('tr:last').find('.fa-trash').removeClass('fa-trash bg-danger')
-        }
-      }
-
-    })
-
     $(document).on('click', '.add-exercise', function () {
       $(this).addClass('fa-trash bg-danger')
       $(this).removeClass('fa-plus bg-success add-exercise')
@@ -450,9 +393,9 @@
       appendMovPrep(move_prep_option)
     })
 
-    function appendRoutine(routines)
+    function appendRoutines(routines)
     {
-      var routine = [];
+      routine = []
       $('.routine').empty()
       $('.routine').append('<option value="" selected disabled>Select option</option>')
       for(var i=0; i<routines.length; i++){
@@ -484,9 +427,8 @@
           if (response.result == "success") {
             $('.login-depend').removeClass('d-none')
             $('.login-form').addClass('d-none')
-            appendData(response.exercises, response.users, response.mov_preps)
-            appendRoutine(response.routines)
-            user_data = response.month_data
+            appendRoutines(response.routines)
+            appendData(response.exercises, response.mov_preps)
             all_routines = response.routines
             $('.btn-submit').removeAttr('disabled')
             $('.check-user').val('no')
@@ -552,15 +494,15 @@
               .then(function () {
                 $('.btn-submit').removeAttr('disabled');
                 $('.btn-submit').text('Submit');
-                user_data = response.data
-                $('.users option[value=""]').prop('selected', true).change()
+                appendRoutines(response.data)
+                all_routines = response.data
                 $('.routine option[value=""]').prop('selected', true).change()
               });
             setTimeout(function () {
               $('.btn-submit').removeAttr('disabled');
               $('.btn-submit').text('Submit');
-              user_data = response.data
-              $('.users option[value=""]').prop('selected', true).change()
+              appendRoutines(response.data)
+              all_routines = response.data
               $('.routine option[value=""]').prop('selected', true).change()
             }, 3000);
           } else {

@@ -94,10 +94,7 @@ $(document).ready(function(){
     $('.select2').select2({
         width: '100%'
     });
-    // $('.customer').select2({
-    //     width: '100%',
-    //     tags: true
-    // });
+    
     // $(".datepicker").datepicker({ 
     //     autoclose: true, 
     //     todayHighlight: true,
