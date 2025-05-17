@@ -1,0 +1,562 @@
+body {
+    min-height: 100vh;
+    background-image: url('../images/login_bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: 'Segoe UI', sans-serif;
+    color: white;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(26, 26, 26, 0.8));
+    z-index: 0;
+}
+
+.container {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 0;
+}
+
+.workout-form {
+    background: rgba(26, 26, 26, 0.9);
+    padding: 40px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 800px;
+    box-shadow: 0 8px 32px 0 rgba(255, 140, 0, 0.2);
+    border: 1px solid rgba(255, 140, 0, 0.2);
+    backdrop-filter: blur(8px);
+}
+
+.logo-section {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.logo-section h2 {
+    color: #ff8c00;
+    font-size: 24px;
+    font-weight: 700;
+    text-transform: none;
+    margin-bottom: 15px;
+}
+
+.logo-section h3 {
+    color: white;
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+
+.client-info {
+    background: rgba(255, 140, 0, 0.1);
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+}
+
+.client-info h5 {
+    margin: 0;
+    font-size: 16px;
+    color: #ffffff;
+}
+
+.form-tabel {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+.form-tabel th {
+    background: rgba(255, 140, 0, 0.2);
+    padding: 15px;
+    color: white;
+    font-weight: 500;
+}
+
+.form-tabel td {
+    padding: 15px;
+    color: #ffffff;
+}
+
+.form-control {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 140, 0, 0.3);
+    border-radius: 8px;
+    color: white;
+    padding: 12px;
+}
+
+.form-control:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: #ff8c00;
+    box-shadow: 0 0 0 2px rgba(255, 140, 0, 0.2);
+    color: white;
+}
+
+.weight-input {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 140, 0, 0.3);
+    border-radius: 8px;
+    color: white;
+    padding: 10px;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+.weight-input:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: #ff8c00;
+    outline: none;
+}
+
+.weight-inputs label {
+    color: #ff8c00;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.btn-main {
+    width: 100%;
+    padding: 12px;
+    background-color: transparent;
+    border: 2px solid #ff8c00;
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 20px;
+}
+
+.btn-main:hover {
+    background-color: #ff8c00;
+    transform: none;
+    box-shadow: none;
+}
+
+.exercise-card {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255, 140, 0, 0.2);
+}
+
+.exercise-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 140, 0, 0.2);
+}
+
+.exercise-name {
+    font-size: 18px;
+    font-weight: 500;
+    color: #ff8c00;
+}
+
+.exercise-details {
+    font-size: 14px;
+    color: #ffffff;
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0;
+    }
+
+    .login-form {
+        padding: 25px;
+        margin: 0;
+        border-width: 1px;
+        border-radius: 0;
+        max-width: 100%;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border-color: #ff8c00;
+    }
+
+    .workout-form {
+        padding: 25px;
+        margin: 10px;
+        border-radius: 15px;
+    }
+
+    .exercise-card {
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+
+    .client-info {
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+
+    .logo-section {
+        margin-bottom: 20px;
+    }
+
+    .logo-section h2 {
+        font-size: 24px;
+        margin-bottom: 15px;
+    }
+
+    .logo-section h3 {
+        font-size: 20px;
+        margin-bottom: 30px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .weight-inputs {
+        margin: 0 -5px;
+    }
+
+    .weight-inputs>div {
+        padding: 0 5px;
+    }
+
+    .btn {
+        margin-top: 15px;
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Add login form styles */
+.login-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.login-form {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 30px;
+    border-radius: 10px;
+    border: 2px solid #ff8c00;
+    width: 100%;
+    max-width: 400px;
+    backdrop-filter: blur(10px);
+    margin: 0;
+}
+
+.form-group {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px 0;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid #ff8c00;
+    color: white;
+    font-size: 16px;
+    outline: none;
+}
+
+.form-group label {
+    position: absolute;
+    left: 0;
+    top: 10px;
+    color: white;
+    font-size: 16px;
+    transition: 0.3s;
+    pointer-events: none;
+}
+
+.form-group input:focus~label,
+.form-group input:valid~label {
+    top: -20px;
+    font-size: 14px;
+    color: white;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Add these styles to your existing CSS */
+.welcome-popup {
+    border: 2px solid #ff8c00 !important;
+    border-radius: 15px !important;
+}
+
+.swal2-popup {
+    background: rgba(0, 0, 0, 0.9) !important;
+    backdrop-filter: blur(10px);
+}
+
+.swal2-title {
+    color: #ff8c00 !important;
+    font-size: 24px !important;
+}
+
+.swal2-html-container {
+    color: white !important;
+    font-size: 18px !important;
+}
+
+.swal2-timer-progress-bar {
+    background: #ff8c00 !important;
+}
+
+/* Add these styles */
+.toggle-password {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #ff8c00;
+    transition: 0.3s;
+}
+
+.toggle-password:hover {
+    color: #ffa500;
+}
+
+.stats-row {
+    margin-left: -10px;
+    margin-right: -10px;
+}
+
+.stat-card {
+    background: rgba(255, 140, 0, 0.1);
+    border: 1px solid rgba(255, 140, 0, 0.2);
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    height: auto;
+    transition: transform 0.2s;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-value {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ff8c00;
+    margin-bottom: 8px;
+}
+
+.stat-label {
+    font-size: 14px;
+    color: #888;
+}
+
+.stats-table-wrapper {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    padding: 20px;
+    border: 1px solid rgba(255, 140, 0, 0.2);
+}
+
+.stats-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.stats-table th,
+.stats-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 140, 0, 0.1);
+}
+
+.stats-table th {
+    color: #ff8c00;
+    font-weight: 600;
+    font-size: 16px;
+    background: rgba(255, 140, 0, 0.1);
+}
+
+.stats-table td {
+    color: #fff;
+    font-size: 15px;
+}
+
+.stats-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.stats-table tbody tr:hover {
+    background: rgba(255, 140, 0, 0.05);
+}
+
+/* Remove old stats card styles */
+.stats-row,
+.stat-card,
+.stat-value,
+.stat-label {
+    display: none;
+}
+
+.workout-summary {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 140, 0, 0.2);
+}
+
+.date-row {
+    position: relative;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 140, 0, 0.2);
+    margin: 2px 0px;
+}
+
+.date-label {
+    position: absolute;
+    top: -32px;
+    left: -5px;
+    background: #ff0000;
+    color: white;
+    padding: 2px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.workout-date {
+    color: #ff8c00;
+    font-size: 100%;
+    margin: 1%;
+    font-weight: 600;
+}
+
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin: 4px 0px;
+}
+
+.summary-item {
+    text-align: center;
+}
+
+.summary-label {
+    color: #ff8c00;
+    font-size: 14px;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.summary-value {
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+@media (max-width: 576px) {
+    .summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .summary-item {
+        padding: 10px;
+    }
+}
+
+.preview-toggle {
+    display: flex;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    padding: 15px;
+    border: 1px solid rgba(255, 140, 0, 0.2);
+    position: relative;
+}
+
+select option {
+    color: black;
+}
+
+.preview-select {
+    width: auto;
+    min-width: 100px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 140, 0, 0.3);
+    color: white;
+    border-radius: 8px;
+    padding: 8px 12px;
+    position: absolute;
+    left: 15px;
+}
+
+.preview-text {
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+    width: 100%;
+}
+
+/* Style the select dropdown arrow */
+.preview-select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ffffff' d='M6 8.825L1.175 4 2.238 2.938 6 6.7l3.763-3.763L10.825 4z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 30px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.summary-input {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+    padding: 5px;
+    cursor: default;
+}
+
+.summary-input:focus {
+    outline: none;
+}
